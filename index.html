@@ -1,100 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Peptide Research Store</title>
+  </head>
 
-import { useEffect } from "react";
+  <body>
+    <div id="root"></div>
 
-function ShopifyProduct({ id, nodeId, title }) {
-
-  useEffect(() => {
-    const scriptURL = "https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js";
-
-    function loadScript() {
-      const script = document.createElement("script");
-      script.async = true;
-      script.src = scriptURL;
-      document.body.appendChild(script);
-      script.onload = initShopify;
-    }
-
-    function initShopify() {
-      const client = window.ShopifyBuy.buildClient({
-        domain: "0pctgn-sj.myshopify.com",
-        storefrontAccessToken: "a1d7ac690f7beb700b3348e29bcdfa22"
-      });
-
-      window.ShopifyBuy.UI.onReady(client).then(function (ui) {
-        ui.createComponent("product", {
-          id: id,
-          node: document.getElementById(nodeId),
-          moneyFormat: "%24%7B%7Bamount%7D%7D",
-          options: {
-            product: {
-              buttonDestination: "checkout",
-              text: { button: "Buy Now" }
-            },
-            cart: {
-              popup: false
-            }
-          }
-        });
-      });
-    }
-
-    if (window.ShopifyBuy) {
-      if (window.ShopifyBuy.UI) {
-        initShopify();
-      } else {
-        loadScript();
-      }
-    } else {
-      loadScript();
-    }
-
-  }, [id, nodeId]);
-
-  return (
-    <div style={{background:"#0f172a",padding:"20px",borderRadius:"10px",textAlign:"center"}}>
-      <h2>{title}</h2>
-      <div id={nodeId}></div>
-    </div>
-  );
-}
-
-export default function App() {
-  return (
-    <div style={{fontFamily:"Arial",background:"#020617",minHeight:"100vh",color:"white",padding:"40px"}}>
-      <h1 style={{textAlign:"center"}}>Research Peptides</h1>
-
-      <div style={{
-        display:"grid",
-        gridTemplateColumns:"repeat(auto-fit,minmax(250px,1fr))",
-        gap:"30px",
-        marginTop:"40px"
-      }}>
-
-        <ShopifyProduct
-          id="10043238547742"
-          nodeId="retatrutide"
-          title="Retatrutide 10mg"
-        />
-
-        <ShopifyProduct
-          id="10043267350814"
-          nodeId="semax"
-          title="Semax 10mg"
-        />
-
-        <ShopifyProduct
-          id="10043268137246"
-          nodeId="ghk"
-          title="GHK-Cu 50mg"
-        />
-
-        <ShopifyProduct
-          id="10043268399390"
-          nodeId="selank"
-          title="Selank 10mg"
-        />
-
-      </div>
-    </div>
-  );
-}
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
